@@ -1,6 +1,6 @@
 [submodule "squantorLibC"]
 	path = squantorLibC
 	url = https://github.com/Squantor/squantorLibC.git
-[submodule "MinUnit"]
-	path = MinUnit
-	url = https://github.com/Squantor/MinUnit.git
+[submodule "squantorMinUnit"]
+	path = squantorMinUnit
+	url = https://github.com/Squantor/squantorMinUnit.git
