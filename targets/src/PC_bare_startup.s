@@ -21,32 +21,47 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#include <PC_bare_syscall.h>
-#include <stdio.h>
+/*
+With help from: https://github.com/zhmu
+*/
+.text
 
-int sysWrite( int f, const char* d, int l )
-{
-   int ret = syscall3( SYS_write, f, ( long )( d ), l );
+.globl  _start
+.type   _start,@function
 
-   return( ret );
-}
+_start:
+        movq    %rsp,%rbp
+        movq    0(%rbp),%rdi        /* argc */
+        leaq    8(%rbp),%rsi        /* argv */
+        leaq    8(%rsi,%rdi,8),%rdx /* envp */
 
-int str_len( const char *string )
-{
-   int length = 0;
-   while( *string ) { string++; length++; }
-   return( length );
-}
+        andq    $~15,%rsp
+        call    main
+        movq    %rax,%rdi
+        call    _exit
 
-void println( const char* string )
-{
-   sysWrite( 1, string, str_len( string ) );
-   sysWrite( 1, "\n", 1 );
-}
+        /* force an illegal opcode exception if _exit returns */
+        ud2
 
-int main(int argc, char *argv[])
-//int main()
-{
-    println("Hello World!\n");
-    return 0;
-}
+.globl  syscall6
+.type   syscall6,@function
+
+syscall6:
+        /* convert arguments as passed by ELF ABI to Linux syscall ABI */
+        movq    %rdi, %rax  /* number */
+        movq    %rsi, %rdi  /* arg0 */
+        movq    %rdx, %rsi  /* arg1 */
+        movq    %rcx, %rdx  /* arg2 */
+        /* arg4 is already in %r8, arg5 is already in %r9 */
+        syscall
+        andq    %rax,%rax
+        js      1f
+
+        /* No error; result is in %rax */
+        retq
+
+1:      /* Move error number to errno and return -1 */
+        negq    %rax
+        movq    %rax, errno
+        movq    $-1, %rax
+        retq

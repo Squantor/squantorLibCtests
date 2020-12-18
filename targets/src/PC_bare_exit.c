@@ -21,32 +21,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+/*
+Based on Rt0: https://github.com/lpsantil/rt0
+Modified with help from: https://github.com/zhmu
+*/
+
 #include <PC_bare_syscall.h>
-#include <stdio.h>
 
-int sysWrite( int f, const char* d, int l )
+void _exit(int r)
 {
-   int ret = syscall3( SYS_write, f, ( long )( d ), l );
-
-   return( ret );
+   syscall1( SYS_exit, r );
+   while(1);
 }
 
-int str_len( const char *string )
-{
-   int length = 0;
-   while( *string ) { string++; length++; }
-   return( length );
-}
-
-void println( const char* string )
-{
-   sysWrite( 1, string, str_len( string ) );
-   sysWrite( 1, "\n", 1 );
-}
-
-int main(int argc, char *argv[])
-//int main()
-{
-    println("Hello World!\n");
-    return 0;
-}

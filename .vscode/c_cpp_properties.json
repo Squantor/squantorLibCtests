@@ -3,6 +3,7 @@
         {
             "name": "Linux",
             "includePath": [
+                "${workspaceFolder}/targets/inc",
                 "${workspaceFolder}/squantorLibC/inc",
                 "${workspaceFolder}/squantorMinUnit/inc",
                 "${workspaceFolder}/squantorLibCtests/inc/"
