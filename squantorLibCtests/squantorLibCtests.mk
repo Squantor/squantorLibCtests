@@ -25,12 +25,10 @@
 # Version: 20200722
 
 # project settings
-TARGET = PC
+TARGET = PC_bare
 
 # project sources
-FILES += $(PROJECT)/src/main.cpp \
-$(PROJECT)/src/test.c \
-$(PROJECT)/src/test.cpp
+FILES += $(PROJECT)/src/main.c
 
 INCLUDES += -I$(PROJECT)/inc
 
