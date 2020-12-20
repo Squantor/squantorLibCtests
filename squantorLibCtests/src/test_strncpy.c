@@ -49,9 +49,9 @@ MU_TEST(testStrncpyNormal)
     mu_check(s[4] == 'e');
     mu_check(s[5] == '\0');
     mu_check(s[6] == 'x');
-    mu_check(strncpy(s, abcde, 7) == s);
+    mu_check(strncpy(s, abcde, 6) == s);
     mu_check(s[6] == '\0');
-    mu_check(strncpy(s, "xxxx", 3) == s);
+    mu_check(strncpy(s, "xxxx", 5) == s);
     mu_check(s[0] == 'x');
     mu_check(s[2] == 'x');
     mu_check(s[3] == 'd');
