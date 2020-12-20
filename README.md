@@ -14,5 +14,4 @@ This program depends my [minimal testing framework](https://github.com/Squantor/
 ## Usage
 # Additional information
 # TODO
-The following tasks are still open:
-* untangling all of the old libC tests
+
