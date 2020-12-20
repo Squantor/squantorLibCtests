@@ -22,11 +22,54 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /*
-Adapted from https://github.com/lpsantil/rt0
 */
+#include <sqMinUnitC.h>
+#include <test_memset.h>
+#include <string.h>
+// disable some warnings in gcc
+#pragma GCC diagnostic ignored "-Wmemset-transposed-args"
 
-#include <PC_bare_rt0.h>
+void testMemsetSetup(void) 
+{
+    
+}
 
-/* pointer to array of char* strings that define the current environment variables */
-char **__environ;
-int PC_bare_errno;
+void testMemsetTeardown(void) 
+{
+
+}
+
+MU_TEST(testMemsetNormal) 
+{
+    char s[] = "xxxxxxxxx";
+    mu_check(memset(s, 'o', 10) == s);
+    mu_check(s[9] == 'o' );
+}
+
+MU_TEST(testMemsetNoOverwrite)
+{
+    char s[] = "xxxxxxxxx";
+    mu_check(memset(s, '_', 0) == s);
+    mu_check(s[0] == 'x');
+}
+
+MU_TEST(testMemsetPartialOverwrite)
+{
+    char s[] = "xxxxxxxxx";
+    mu_check(memset(s, '_', 1) == s);
+    mu_check(s[0] == '_');
+    mu_check(s[1] == 'x');
+}
+
+MU_TEST_SUITE(testMemset) 
+{
+    MU_SUITE_CONFIGURE(&testMemsetSetup, &testMemsetTeardown);
+    MU_RUN_TEST(testMemsetNormal);
+    MU_RUN_TEST(testMemsetNoOverwrite);
+    MU_RUN_TEST(testMemsetPartialOverwrite);
+}
+
+void testMemsetSuite()
+{
+    MU_RUN_SUITE(testMemset);
+}

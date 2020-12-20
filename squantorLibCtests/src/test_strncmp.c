@@ -22,11 +22,47 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /*
-Adapted from https://github.com/lpsantil/rt0
 */
+#include <string.h>
+#include <sqMinUnitC.h>
+#include <test_strncmp.h>
+#include <strings.h>
 
-#include <PC_bare_rt0.h>
+void testStrncmpSetup(void) 
+{
+    
+}
 
-/* pointer to array of char* strings that define the current environment variables */
-char **__environ;
-int PC_bare_errno;
+void testStrncmpTeardown(void) 
+{
+
+}
+
+MU_TEST(testStrncmpNormal) 
+{
+    char cmpabcde[] = "abcde\0f";
+    char cmpabcd_[] = "abcde\xfc";
+    char empty[] = "";
+    char x[] = "x";
+    mu_check(strncmp(abcde, cmpabcde, 5) == 0);
+    mu_check(strncmp(abcde, cmpabcde, 10) == 0);
+    mu_check(strncmp(abcde, abcdx, 5) < 0);
+    mu_check(strncmp(abcdx, abcde, 5) > 0);
+    mu_check(strncmp(empty, abcde, 5) < 0);
+    mu_check(strncmp(abcde, empty, 5) > 0);
+    mu_check(strncmp(abcde, abcdx, 4) == 0);
+    mu_check(strncmp(abcde, x, 0) == 0);
+    mu_check(strncmp(abcde, x, 1) < 0);
+    mu_check(strncmp(abcde, cmpabcd_, 10) < 0);
+}
+
+MU_TEST_SUITE(testStrncmp) 
+{
+    MU_SUITE_CONFIGURE(&testStrncmpSetup, &testStrncmpTeardown);
+    MU_RUN_TEST(testStrncmpNormal);
+}
+
+void testStrncmpSuite()
+{
+    MU_RUN_SUITE(testStrncmp);
+}

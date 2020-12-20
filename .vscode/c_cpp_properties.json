@@ -5,6 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/targets/inc",
                 "${workspaceFolder}/squantorLibC/inc",
+                "${workspaceFolder}/squantorLibC/inc_internal",
                 "${workspaceFolder}/squantorMinUnit/inc",
                 "${workspaceFolder}/squantorLibCtests/inc/"
             ],

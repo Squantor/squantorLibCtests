@@ -22,11 +22,48 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /*
-Adapted from https://github.com/lpsantil/rt0
 */
+#include <sqMinUnitC.h>
+#include <test_strncpy.h>
+#include <string.h>
+#include <strings.h>
 
-#include <PC_bare_rt0.h>
+void testStrncpySetup(void) 
+{
+    
+}
 
-/* pointer to array of char* strings that define the current environment variables */
-char **__environ;
-int PC_bare_errno;
+void testStrncpyTeardown(void) 
+{
+
+}
+
+MU_TEST(testStrncpyNormal) 
+{
+    char s[] = "xxxxxxx";
+    mu_check(strncpy(s, "", 1) == s);
+    mu_check(s[0] == '\0');
+    mu_check(s[1] == 'x');
+    mu_check(strncpy(s, abcde, 6) == s);
+    mu_check(s[0] == 'a');
+    mu_check(s[4] == 'e');
+    mu_check(s[5] == '\0');
+    mu_check(s[6] == 'x');
+    mu_check(strncpy(s, abcde, 7) == s);
+    mu_check(s[6] == '\0');
+    mu_check(strncpy(s, "xxxx", 3) == s);
+    mu_check(s[0] == 'x');
+    mu_check(s[2] == 'x');
+    mu_check(s[3] == 'd');
+}
+
+MU_TEST_SUITE(testStrncpy) 
+{
+    MU_SUITE_CONFIGURE(&testStrncpySetup, &testStrncpyTeardown);
+    MU_RUN_TEST(testStrncpyNormal);
+}
+
+void testStrncpySuite()
+{
+    MU_RUN_SUITE(testStrncpy);
+}

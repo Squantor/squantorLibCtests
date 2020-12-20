@@ -22,11 +22,45 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /*
-Adapted from https://github.com/lpsantil/rt0
 */
+#include <sqMinUnitC.h>
+#include <test_memmove.h>
+#include <string.h>
 
-#include <PC_bare_rt0.h>
+void testMemmoveSetup(void) 
+{
+    
+}
 
-/* pointer to array of char* strings that define the current environment variables */
-char **__environ;
-int PC_bare_errno;
+void testMemmoveTeardown(void) 
+{
+
+}
+
+MU_TEST(testMemmoveOverlapLower)
+{
+    static char s[] = "xxxxabcde";
+    mu_check(memmove(s, s + 4, 5) == s);
+    mu_check(s[0] == 'a');
+    mu_check(s[4] == 'e');
+    mu_check(s[5] == 'b');
+}
+
+MU_TEST(testMemmoveOverlapHigher)
+{
+    static char s[] = "abcdexxxx";
+    mu_check(memmove(s + 4, s, 5) == s + 4);
+    mu_check(s[4] == 'a');
+}
+
+MU_TEST_SUITE(testMemmove) 
+{
+    MU_SUITE_CONFIGURE(&testMemmoveSetup, &testMemmoveTeardown);
+    MU_RUN_TEST(testMemmoveOverlapLower);
+    MU_RUN_TEST(testMemmoveOverlapHigher);
+}
+
+void testMemmoveSuite()
+{
+    MU_RUN_SUITE(testMemmove);
+}

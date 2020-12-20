@@ -22,11 +22,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /*
-Adapted from https://github.com/lpsantil/rt0
 */
+#include <sqMinUnitC.h>
+#include <strings.h>
+#include <test_strspn.h>
+#include <string.h>
 
-#include <PC_bare_rt0.h>
+void testStrspnSetup(void) 
+{
+    
+}
 
-/* pointer to array of char* strings that define the current environment variables */
-char **__environ;
-int PC_bare_errno;
+void testStrspnTeardown(void) 
+{
+
+}
+
+MU_TEST(testStrspnNormal) 
+{
+    mu_check(strspn(abcde, "abc") == 3);
+    mu_check(strspn(abcde, "b") == 0);
+    mu_check(strspn(abcde, abcde) == 5);
+}
+
+MU_TEST_SUITE(testStrspn) 
+{
+    MU_SUITE_CONFIGURE(&testStrspnSetup, &testStrspnTeardown);
+    MU_RUN_TEST(testStrspnNormal);
+}
+
+void testStrspnSuite()
+{
+    MU_RUN_SUITE(testStrspn);
+}

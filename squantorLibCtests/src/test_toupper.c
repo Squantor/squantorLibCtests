@@ -22,11 +22,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /*
-Adapted from https://github.com/lpsantil/rt0
 */
+#include <sqMinUnitC.h>
+#include <test_toupper.h>
+#include <ctype.h>
 
-#include <PC_bare_rt0.h>
+void testToUpperSetup(void) 
+{
+}
 
-/* pointer to array of char* strings that define the current environment variables */
-char **__environ;
-int PC_bare_errno;
+void testToUpperTeardown(void) 
+{
+}
+
+MU_TEST(testToUpperNormal) 
+{
+    mu_check(toupper('a') == 'A');
+    mu_check(toupper('z') == 'Z');
+    mu_check(toupper('A') == 'A');
+    mu_check(toupper('Z') == 'Z');
+    mu_check(toupper('@') == '@');
+    mu_check(toupper('[') == '[');
+}
+
+MU_TEST_SUITE(testToUpper) 
+{
+    MU_SUITE_CONFIGURE(&testToUpperSetup, &testToUpperTeardown);
+    MU_RUN_TEST(testToUpperNormal);
+}
+
+void testToUpperSuite()
+{
+    MU_RUN_SUITE(testToUpper);
+}

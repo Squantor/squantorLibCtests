@@ -22,11 +22,47 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /*
-Adapted from https://github.com/lpsantil/rt0
 */
+#include <sqMinUnitC.h>
+#include <test_memcpy.h>
+#include <string.h>
+#include <strings.h>
 
-#include <PC_bare_rt0.h>
+void testMemcpySetup(void) 
+{
+    
+}
 
-/* pointer to array of char* strings that define the current environment variables */
-char **__environ;
-int PC_bare_errno;
+void testMemcpyTeardown(void) 
+{
+
+}
+
+MU_TEST(testMemcpyNormal) 
+{
+    char s[] = "xxxxxxxxxxx";
+
+    mu_check(memcpy(s, abcde, 6) == s);
+    mu_check(s[4] == 'e');
+    mu_check(s[5] == '\0');
+}
+
+MU_TEST(testMemcpyPartial) 
+{
+    char s[] = "xxxxxxxxxxx";
+    mu_check(memcpy(s + 5, abcde, 5) == s + 5);
+    mu_check(s[9] == 'e');
+    mu_check(s[10] == 'x');
+}
+
+MU_TEST_SUITE(testMemcpy) 
+{
+    MU_SUITE_CONFIGURE(&testMemcpySetup, &testMemcpyTeardown);
+    MU_RUN_TEST(testMemcpyNormal);
+    MU_RUN_TEST(testMemcpyPartial);
+}
+
+void testMemcpySuite()
+{
+    MU_RUN_SUITE(testMemcpy);
+}

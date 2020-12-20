@@ -22,11 +22,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /*
-Adapted from https://github.com/lpsantil/rt0
 */
+#include <sqMinUnitC.h>
+#include <test_dummy.h>
 
-#include <PC_bare_rt0.h>
+void testDummySetup(void) 
+{
+    
+}
 
-/* pointer to array of char* strings that define the current environment variables */
-char **__environ;
-int PC_bare_errno;
+void testDummyTeardown(void) 
+{
+
+}
+
+MU_TEST(testDummyNormal) 
+{
+
+}
+
+MU_TEST_SUITE(testDummy) 
+{
+    MU_SUITE_CONFIGURE(&testDummySetup, &testDummyTeardown);
+    MU_RUN_TEST(testDummyNormal);
+}
+
+void testDummySuite()
+{
+    MU_RUN_SUITE(testDummy);
+}

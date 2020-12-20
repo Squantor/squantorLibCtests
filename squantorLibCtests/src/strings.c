@@ -22,11 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /*
-Adapted from https://github.com/lpsantil/rt0
+commonly used strings by tests
 */
 
-#include <PC_bare_rt0.h>
-
-/* pointer to array of char* strings that define the current environment variables */
-char **__environ;
-int PC_bare_errno;
+const char abcde[] = "abcde";
+const char abcdx[] = "abcdx";
+const char xxxxx[] = "xxxxx";

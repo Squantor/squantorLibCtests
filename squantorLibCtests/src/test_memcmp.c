@@ -22,11 +22,43 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /*
-Adapted from https://github.com/lpsantil/rt0
 */
+#include <sqMinUnitC.h>
+#include <test_memcmp.h>
+#include <string.h>
+#include <strings.h>
 
-#include <PC_bare_rt0.h>
+void testMemcmpSetup(void) 
+{
+    
+}
 
-/* pointer to array of char* strings that define the current environment variables */
-char **__environ;
-int PC_bare_errno;
+void testMemcmpTeardown(void) 
+{
+
+}
+
+MU_TEST(testMemcmpEquals)
+{
+
+    mu_check(memcmp(abcde, abcdx, 4) == 0);
+    mu_check(memcmp(abcde, xxxxx, 0) == 0);
+}
+
+MU_TEST(testMemcmpNotEquals) 
+{
+    mu_check(memcmp(abcde, abcdx, 5) < 0);
+    mu_check(memcmp(xxxxx, abcde, 1) > 0);    
+}
+
+MU_TEST_SUITE(testMemcmp) 
+{
+    MU_SUITE_CONFIGURE(&testMemcmpSetup, &testMemcmpTeardown);
+    MU_RUN_TEST(testMemcmpEquals);
+    MU_RUN_TEST(testMemcmpNotEquals);
+}
+
+void testMemcmpSuite()
+{
+    MU_RUN_SUITE(testMemcmp);
+}

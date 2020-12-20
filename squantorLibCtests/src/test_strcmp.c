@@ -22,11 +22,43 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /*
-Adapted from https://github.com/lpsantil/rt0
 */
+#include <string.h>
+#include <sqMinUnitC.h>
+#include <test_strcmp.h>
+#include <strings.h>
 
-#include <PC_bare_rt0.h>
+void testStrcmpSetup(void) 
+{
+    
+}
 
-/* pointer to array of char* strings that define the current environment variables */
-char **__environ;
-int PC_bare_errno;
+void testStrcmpTeardown(void) 
+{
+
+}
+
+MU_TEST(testStrcmpNormal) 
+{
+
+    char cmpabcde[] = "abcde";
+    char cmpabcd_[] = "abcd\xfc";
+    char empty[] = "";
+    mu_check(strcmp(abcde, cmpabcde) == 0);
+    mu_check(strcmp(abcde, abcdx) < 0);
+    mu_check(strcmp(abcdx, abcde) > 0);
+    mu_check(strcmp(empty, abcde) < 0);
+    mu_check(strcmp(abcde, empty) > 0);
+    mu_check(strcmp(abcde, cmpabcd_) < 0);
+}
+
+MU_TEST_SUITE(testStrcmp) 
+{
+    MU_SUITE_CONFIGURE(&testStrcmpSetup, &testStrcmpTeardown);
+    MU_RUN_TEST(testStrcmpNormal);
+}
+
+void testStrcmpSuite()
+{
+    MU_RUN_SUITE(testStrcmp);
+}

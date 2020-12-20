@@ -22,11 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /*
-Adapted from https://github.com/lpsantil/rt0
 */
+#ifndef TEST_STRRCHR_H
+#define TEST_STRRCHR_H
 
-#include <PC_bare_rt0.h>
+void testStrrchrSuite();
 
-/* pointer to array of char* strings that define the current environment variables */
-char **__environ;
-int PC_bare_errno;
+#endif

@@ -8,7 +8,7 @@
 #define __RT0__
 
 extern char **__environ; /* pointer to array of char * strings that define the current environment variables */
-extern int errno;
+extern int PC_bare_errno;
 extern char _end, _edata, _etext, __executable_start;
 
 void _exit(int r);

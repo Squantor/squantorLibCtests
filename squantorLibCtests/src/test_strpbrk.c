@@ -22,11 +22,41 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /*
-Adapted from https://github.com/lpsantil/rt0
 */
+#include <sqMinUnitC.h>
+#include <strings.h>
+#include <test_strpbrk.h>
+#include <string.h>
 
-#include <PC_bare_rt0.h>
+void testStrpbrkSetup(void) 
+{
+    
+}
 
-/* pointer to array of char* strings that define the current environment variables */
-char **__environ;
-int PC_bare_errno;
+void testStrpbrkTeardown(void) 
+{
+
+}
+
+MU_TEST(testStrpbrkNormal) 
+{
+    mu_check(strpbrk(abcde, "x") == NULL);
+    mu_check(strpbrk(abcde, "xyz") == NULL);
+    mu_check(strpbrk(abcdx, "x") == &abcdx[4]);
+    mu_check(strpbrk(abcdx, "xyz") == &abcdx[4]);
+    mu_check(strpbrk(abcdx, "zyx") == &abcdx[4]);
+    mu_check(strpbrk(abcde, "a") == &abcde[0]);
+    mu_check(strpbrk(abcde, "abc") == &abcde[0]);
+    mu_check(strpbrk(abcde, "cba") == &abcde[0]);
+}
+
+MU_TEST_SUITE(testStrpbrk) 
+{
+    MU_SUITE_CONFIGURE(&testStrpbrkSetup, &testStrpbrkTeardown);
+    MU_RUN_TEST(testStrpbrkNormal);
+}
+
+void testStrpbrkSuite()
+{
+    MU_RUN_SUITE(testStrpbrk);
+}
