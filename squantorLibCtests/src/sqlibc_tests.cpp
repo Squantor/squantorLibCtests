@@ -49,7 +49,7 @@ void minunitReport(const char * message)
 //int main(int argc, char *argv[]) {
 int main() 
 {   
-    /* execute c++ constructors */
+    /* execute constructors */
     auto preInitFunc = __preinit_array_start;
     while(preInitFunc < __preinit_array_end)
     {
