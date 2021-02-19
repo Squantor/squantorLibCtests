@@ -19,9 +19,9 @@ MINUNIT_ADD(testStrncpyNormal)
     minUnitCheck(s[4] == 'e');
     minUnitCheck(s[5] == '\0');
     minUnitCheck(s[6] == 'x');
-    minUnitCheck(strncpy(s, abcde, 6) == s);
+    minUnitCheck(strncpy(s, abcde, 7) == s);
     minUnitCheck(s[6] == '\0');
-    minUnitCheck(strncpy(s, "xxxx", 5) == s);
+    minUnitCheck(strncpy(s, "xxxx", 3) == s);
     minUnitCheck(s[0] == 'x');
     minUnitCheck(s[2] == 'x');
     minUnitCheck(s[3] == 'd');
