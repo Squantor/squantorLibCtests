@@ -8,6 +8,10 @@
 #ifndef __RT0_SYSCALL__
 #define __RT0_SYSCALL__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <PC_bare_rt0.h>
 #include <asm-generic/errno.h>
 
@@ -27,5 +31,9 @@ long syscall6( long n, long a0, long a1, long a2, long a3, long a4, long a5 );
    syscall2( ( m ), ( b0 ), 0 )
 #define syscall0( m )                                                \
    syscall1( ( m ), 0 )
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

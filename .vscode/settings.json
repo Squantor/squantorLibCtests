@@ -3,7 +3,13 @@
         "test.h": "c",
         "cstddef": "cpp",
         "cerrno": "c",
-        "system_error": "c"
+        "system_error": "c",
+        "minunit.h": "c",
+        "test_strchr.h": "c",
+        "test_strncpy.h": "c",
+        "strings.h": "c",
+        "strto_internal.h": "c",
+        "string.h": "c"
     },
     "C_Cpp.default.cppStandard": "c++20",
     "C_Cpp.default.cStandard": "c11",

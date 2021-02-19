@@ -1,62 +1,21 @@
 /*
-MIT License
-
-Copyright (c) 2019 Bart Bilos
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
-/*
-*/
-#include <sqMinUnitC.h>
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2021 Bart Bilos
+ * For conditions of distribution and use, see LICENSE file
+ */
+#include <MinUnit.h>
 #include <strings.h>
-#include <test_strpbrk.h>
 #include <string.h>
 
-void testStrpbrkSetup(void) 
+MINUNIT_ADD(testStrpbrkNormal) 
 {
-    
-}
-
-void testStrpbrkTeardown(void) 
-{
-
-}
-
-MU_TEST(testStrpbrkNormal) 
-{
-    mu_check(strpbrk(abcde, "x") == NULL);
-    mu_check(strpbrk(abcde, "xyz") == NULL);
-    mu_check(strpbrk(abcdx, "x") == &abcdx[4]);
-    mu_check(strpbrk(abcdx, "xyz") == &abcdx[4]);
-    mu_check(strpbrk(abcdx, "zyx") == &abcdx[4]);
-    mu_check(strpbrk(abcde, "a") == &abcde[0]);
-    mu_check(strpbrk(abcde, "abc") == &abcde[0]);
-    mu_check(strpbrk(abcde, "cba") == &abcde[0]);
-}
-
-MU_TEST_SUITE(testStrpbrk) 
-{
-    MU_SUITE_CONFIGURE(&testStrpbrkSetup, &testStrpbrkTeardown);
-    MU_RUN_TEST(testStrpbrkNormal);
-}
-
-void testStrpbrkSuite()
-{
-    MU_RUN_SUITE(testStrpbrk);
+    minUnitCheck(strpbrk(abcde, "x") == NULL);
+    minUnitCheck(strpbrk(abcde, "xyz") == NULL);
+    minUnitCheck(strpbrk(abcdx, "x") == &abcdx[4]);
+    minUnitCheck(strpbrk(abcdx, "xyz") == &abcdx[4]);
+    minUnitCheck(strpbrk(abcdx, "zyx") == &abcdx[4]);
+    minUnitCheck(strpbrk(abcde, "a") == &abcde[0]);
+    minUnitCheck(strpbrk(abcde, "abc") == &abcde[0]);
+    minUnitCheck(strpbrk(abcde, "cba") == &abcde[0]);
 }

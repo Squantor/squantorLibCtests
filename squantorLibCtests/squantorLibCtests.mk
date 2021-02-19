@@ -1,37 +1,20 @@
-# MIT License
-
-# Copyright (c) 2020 Bart Bilos
-
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2021 Bart Bilos
+# For conditions of distribution and use, see LICENSE file
 
 # project settings
 #
-# Version: 20200722
+# Version: 20201220
 
 # include library settings
 include squantorLibC/squantorLibC.mk
+include squantorMinUnit/squantorMinUnit.mk
 
 # project settings
 TARGET = PC_bare
 
 # project sources
-FILES += $(PROJECT)/src/sqlibc_tests.c \
+FILES += $(PROJECT)/src/sqlibc_tests.cpp \
 $(PROJECT)/src/strings.c \
 $(PROJECT)/src/test_strlen.c \
 $(PROJECT)/src/test_strcmp.c \
@@ -56,7 +39,6 @@ $(PROJECT)/src/test_strrchr.c \
 $(PROJECT)/src/test_strspn.c \
 $(PROJECT)/src/test_strstr.c
 
-INCLUDES += -I$(PROJECT)/inc -IsquantorMinUnit/inc -IsquantorLibC/inc \
--IsquantorLibC/inc_internal
+INCLUDES += -I$(PROJECT)/inc
 
 
